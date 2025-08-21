@@ -6,8 +6,8 @@ class BinarySearch {
     int binarySearch(int arr[], int l, int r, int x) 
     { 
         //Write your code here
-        int mid = l + (r - l) / 2;
         while(l <= r) {
+            int mid = l + (r - l) / 2;
             if(arr[mid] == x) // element found
                 return mid;
             else if(arr[mid] < x) // element of right half of array

@@ -5,46 +5,39 @@ import java.util.Arrays;
 
 class MergeSort 
 { 
+    private int[] tempArr;
     // Merges two subarrays of arr[]. 
     // First subarray is arr[l..m] 
     // Second subarray is arr[m+1..r] 
     void merge(int arr[], int l, int m, int r) 
     {  
         //Your code here  
-        // Create temporary arrays for the two halves
-        int[] left = Arrays.copyOfRange(arr, l, m + 1);
-        int[] right = Arrays.copyOfRange(arr, m + 1, r + 1);
-        int leftSize = m - l + 1;
-        int rightSize = r - m;
-        int i = 0;
-        int j = 0;
+        int i = l;
+        int j = m + 1;
         int k = l;
 
         // Merge the temporary arrays
-        while(i < leftSize && j < rightSize) {
-            if(left[i] <= right[j]) {
-                arr[k] = left[i];
-                i++;
-            }
+        while(i <= m && j <= r) {
+            if (arr[i] <= arr[j]) {
+                tempArr[k++] = arr[i++];
+            } 
             else {
-                arr[k] = right[j];
-                j++;
+                tempArr[k++] = arr[j++];
             }
-            k++;
         }
 
-        // Copy any remaining elements in left side array
-        while(i < leftSize) {
-            arr[k] = left[i];
-            i++;
-            k++;
+        // Copy any remaining elements from left subarray 
+        while (i <= m) {
+            tempArr[k++] = arr[i++];
         }
 
-        // Copy any remaining elements in right side array
-        while(j < rightSize) {
-            arr[k] = right[j];
-            j++;
-            k++;
+        // Copy any remaining elements from right subarray
+        while (j <= r) {
+            tempArr[k++] = arr[j++];
+        }
+
+        for (int p = l; p <= r; p++) {
+            arr[p] = tempArr[p];
         }
     } 
   
@@ -80,6 +73,7 @@ class MergeSort
         printArray(arr); 
   
         MergeSort ob = new MergeSort(); 
+        ob.tempArr = new int[arr.length];
         ob.sort(arr, 0, arr.length-1); 
   
         System.out.println("\nSorted array"); 
